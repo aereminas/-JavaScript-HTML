@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Простой Калькулятор</title>
+    <style>
+        #calculator {
+            width: 220px;
+            margin: 50px auto;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+        #history {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            font-size: 14px;
+        }
+        button {
+            width: 50px;
+            height: 50px;
+            margin: 3px;
+            font-size: 20px;
+        }
+        input {
+            width: 100%;
+            height: 40px;
+            font-size: 18px;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="calculator">
+    <input type="text" id="inputField" disabled>
+
+    <div id="buttons">
+        <!-- Цифры -->
+        <button onclick="appendToInput('7')">7</button>
+        <button onclick="appendToInput('8')">8</button>
+        <button onclick="appendToInput('9')">9</button>
+        <button onclick="appendToInput('/')">/</button>
+        <br>
+        <button onclick="appendToInput('4')">4</button>
+        <button onclick="appendToInput('5')">5</button>
+        <button onclick="appendToInput('6')">6</button>
+        <button onclick="appendToInput('*')">*</button>
+        <br>
+        <button onclick="appendToInput('1')">1</button>
+        <button onclick="appendToInput('2')">2</button>
+        <button onclick="appendToInput('3')">3</button>
+        <button onclick="appendToInput('-')">-</button>
+        <br>
+        <button onclick="appendToInput('0')">0</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="clearInput()">C</button>
+        <button onclick="appendToInput('+')">+</button>
+    </div>
+
+    <div id="history">
+        <h4>История действий:</h4>
+    </div>
+</div>
+
+<script>
+    function appendToInput(value) {
+        document.getElementById('inputField').value += value;
+    }
+
+    function clearInput() {
+        document.getElementById('inputField').value = '';
+    }
+
+    function calculate() {
+        let input = document.getElementById('inputField').value;
+        try {
+            let result = eval(input); // Используем eval для простых выражений
+            addToHistory(input + " = " + result);
+            document.getElementById('inputField').value = result;
+        } catch (error) {
+            alert("Ошибка в выражении!");
+        }
+    }
+
+    function addToHistory(record) {
+        let historyDiv = document.getElementById('history');
+        let newRecord = document.createElement('div');
+        newRecord.textContent = record;
+        historyDiv.appendChild(newRecord);
+    }
+</script>
+
+</body>
+</html>
